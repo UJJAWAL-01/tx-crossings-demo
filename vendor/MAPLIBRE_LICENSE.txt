@@ -1,0 +1,1 @@
+MapLibre GL JS 6.14.0, BSD-3-Clause, https://github.com/maplibre/maplibre-gl-js

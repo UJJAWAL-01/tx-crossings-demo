@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Texas Road-Stream Crossings: Pilot Brief</title>
+<meta name="robots" content="noindex, nofollow">
+<style>
+@page { size: Letter; margin: 0.5in; }
+:root { --ink: #161616; --muted: #555; --line: #dcd9d2; --soft: #f5f4f1;
+  --ford: #d7301f; --culvert: #f08c00; --bridge: #2b6cb0; --ok: #1d7a3a; }
+* { box-sizing: border-box; }
+html, body { margin: 0; color: var(--ink); background: #fff;
+  font: 8.9pt/1.36 "Segoe UI", system-ui, -apple-system, Roboto, sans-serif; }
+.page { width: 7.5in; height: 10in; overflow: hidden; display: flex; flex-direction: column; gap: 0.075in;
+  break-after: page; }
+.page:last-child { break-after: auto; }
+@media screen {
+  body { background: #e9e7e2; padding: 24px 0; }
+  .page { background: #fff; margin: 0 auto 24px; padding: 0.5in; width: 8.5in; height: 11in;
+    box-shadow: 0 1px 6px #0002; }
+}
+h1 { font-size: 19pt; line-height: 1.15; margin: 0; letter-spacing: -0.01em; }
+h2 { font-size: 11pt; margin: 0 0 3px; padding-bottom: 2px; border-bottom: 1.5px solid var(--ink); }
+h3 { font-size: 9.6pt; margin: 0 0 2px; }
+p { margin: 0 0 4px; }
+ul, ol { margin: 0; padding-left: 15px; } li { margin: 0 0 2.5px; }
+.top { display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 3px solid var(--ink); padding-bottom: 6px; }
+.top .meta { color: var(--muted); font-size: 8.8pt; text-align: right; }
+.tag { display: inline-block; border: 1px solid var(--ink); border-radius: 3px; padding: 0 5px; font-size: 7.8pt;
+  font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
+.lead { font-size: 9.8pt; line-height: 1.38; margin: 0; }
+.cols { display: grid; grid-template-columns: 1.15fr 1fr; gap: 0.2in; }
+.steps { counter-reset: s; list-style: none; padding: 0; }
+.steps li { counter-increment: s; position: relative; padding-left: 22px; margin-bottom: 4px; }
+.steps li::before { content: counter(s); position: absolute; left: 0; top: 0; width: 15px; height: 15px; border-radius: 50%;
+  background: var(--ink); color: #fff; font-size: 8pt; font-weight: 700; text-align: center; line-height: 15px; }
+figure { margin: 0; }
+figure img { width: 100%; display: block; border: 1px solid var(--line); border-radius: 3px; }
+figcaption { font-size: 8pt; color: var(--muted); margin-top: 3px; line-height: 1.32; }
+.k { display: inline-block; width: 8px; height: 8px; border-radius: 50%; vertical-align: 0; margin: 0 2px 0 1px; }
+.k.f { background: var(--ford); } .k.c { background: var(--culvert); } .k.b { background: var(--bridge); }
+.k.r { background: #fff; border: 1.6px solid #111; width: 9px; height: 9px; }
+table { width: 100%; border-collapse: collapse; font-size: 9pt; }
+th, td { text-align: left; padding: 2.5px 6px; border-bottom: 1px solid var(--line); vertical-align: top; }
+thead th { border-bottom: 1.5px solid var(--ink); font-size: 8.6pt; }
+td.n { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+td.n b { font-size: 10pt; }
+.low { color: var(--ford); }
+.note { font-size: 8.2pt; color: var(--muted); margin-top: 3px; }
+.box { background: var(--soft); border: 1px solid var(--line); border-radius: 4px; padding: 7px 9px; }
+.says li { margin-bottom: 3.5px; }
+.ex { display: grid; grid-template-columns: 1fr 1fr; gap: 0.16in; align-items: start; }
+.read { margin: 0; } .read dt { font-weight: 600; } .read dd { margin: 0 0 3px; }
+.tiers { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+.tiers div { border: 1px solid var(--line); border-radius: 4px; padding: 4px 6px; font-size: 8.4pt; }
+.tiers b { display: block; font-size: 8.8pt; }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 0.2in; }
+.foot { margin-top: auto; border-top: 1px solid var(--line); padding-top: 3px; font-size: 7.5pt; color: var(--muted); line-height: 1.3; }
+</style>
+</head>
+<body>
+
+<section class="page">
+  <div class="top">
+    <div>
+      <span class="tag">Pilot results</span>
+      <h1>Texas road-stream crossing atlas</h1>
+      <div style="font-size:11pt;margin-top:2px">Road-stream crossings in Hays and Travis counties, found and measured from open data</div>
+    </div>
+    <div class="meta">November 2026<br>Ujjawal Patel</div>
+  </div>
+
+  <p class="lead">When a creek rises, a road that dips through the stream bed (a low-water crossing) floods before
+    anything else. Texas's public inventory (TxGIO) lists 8,339 low-water crossings statewide, contributed by counties,
+    cities, agencies and volunteers. It does not record <b>how high each road sits above its stream</b>, and it may
+    miss crossings. This pilot builds a measured list automatically from free public data and tests it honestly.</p>
+
+  <div class="cols">
+    <div>
+      <h2>What the pilot does</h2>
+      <ol class="steps">
+        <li><b>Find</b> the places where a road meets a stream: Census road maps × USGS stream maps, plus stream lines traced
+          from 10 m elevation, which catch small channels the maps miss.</li>
+        <li><b>Measure</b> each crossing from 1 m lidar (a laser-scanned map of the ground): trace the road surface,
+          find its lowest point and compare it with the stream level beside it. That gap is the <b>clearance</b>;
+          about 0 m means the road runs through the stream bed.</li>
+        <li><b>Classify</b> each crossing as ford-, culvert- or bridge-like, from the measurements alone. The model
+          learned from Hays County examples in TxGIO and the federal bridge inventory (NBI).</li>
+        <li><b>Rank</b> the crossings with a transparent points table: type, clearance, upstream drainage area and missing
+          warning sign. It is a screening rank, not a forecast.</li>
+      </ol>
+      <h2 style="margin-top:6px">How it was tested</h2>
+      <p>The model learned from <b>Hays County only</b>. Before any Travis computation, the test rules were frozen and
+        the model file was locked by its fingerprint (sha256); only aggregate Travis label counts had been looked at.
+        Travis was then run <b>once</b>, and the results are reported as they came out, including the weak one.</p>
+    </div>
+    <figure>
+      <img src="img/map_overview.png" alt="Map of crossings in Hays and Travis counties">
+      <figcaption>All 9,577 crossings found: Travis County (north) and Hays County (south).
+        <i class="k f"></i>ford-like <i class="k c"></i>culvert-like <i class="k b"></i>bridge-like
+        <i class="k r"></i>on the TxGIO list. From the live demo.</figcaption>
+    </figure>
+  </div>
+
+  <div>
+    <h2>Results</h2>
+    <table>
+      <colgroup><col style="width:58%"><col style="width:21%"><col style="width:21%"></colgroup>
+      <thead><tr><th></th><th style="text-align:right">Hays (training)</th><th style="text-align:right">Travis (held-out test)</th></tr></thead>
+      <tbody>
+        <tr><td>Road-stream crossings found (of which measured from 1 m lidar)</td><td class="n">2,772 (2,338)</td><td class="n">6,805 (5,096)</td></tr>
+        <tr><td><b>Known low-water crossings found</b> (TxGIO, not volunteered; within 30 m)</td>
+          <td class="n"><b>88%</b> of 276</td><td class="n"><b>93%</b> of 211</td></tr>
+        <tr><td>Fords told apart from bridges, measurements only (AUC: 0.5 chance, 1 perfect)</td><td class="n">0.85</td><td class="n">–</td></tr>
+        <tr><td>Ford <b>recall</b>: of the real fords, the share it called "ford"</td><td class="n">74%</td><td class="n">74%</td></tr>
+        <tr><td>Ford <b>precision</b>: when it says "ford", the share that are fords</td><td class="n">76%</td><td class="n low"><b>22%</b></td></tr>
+        <tr><td>Ford-like crossings <b>not on the TxGIO list</b> (unverified candidates)</td><td class="n">–</td><td class="n">2,031</td></tr>
+      </tbody>
+    </table>
+    <p class="note">Hays figures are cross-validated; precision and recall count only crossings with a TxGIO or NBI
+      label. The brief's targets were 85% precision and 75% recall. Processing Travis took about 33 minutes on one
+      laptop (4 cores, home internet), after downloads.</p>
+  </div>
+
+  <div class="box">
+    <h3>What the numbers say</h3>
+    <ul class="says">
+      <li><b>Finding and measuring work on a county the model never saw:</b> 93% of Travis's known low-water crossings
+        were found, and three in four crossings passed every measurement check and carry a measured clearance.</li>
+      <li><b>Shape alone is not yet precise enough in a city.</b> The model behaved the same in both counties (caught
+        74% of fords, wrongly flagged about 28% of non-fords). But fords are only 9% of Travis's labelled structures
+        (55% in Hays), so there the false alarms outnumber the real fords. Aerial-image recognition is the next step.</li>
+      <li><b>The 2,031 unlisted ford-like crossings</b> are places where the road dips to stream level: a mix of
+        unlisted fords, small culverts and road dips over shallow drainage. They are candidates for review, not new
+        fords.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="page">
+  <div>
+    <h2>How to read one crossing: CR 174 over the Blanco River (Hays County)</h2>
+    <div class="ex">
+      <figure>
+        <img src="img/crossing_pictures.png" alt="Hillshade from lidar and aerial photo of the crossing">
+        <img src="img/crossing_profile.png" alt="Road profile" style="margin-top:3px">
+        <figcaption>From the live demo. Left: 1 m lidar hillshade (the shape of the ground; red ring: the crossing
+          point). Right: NAIP 2022 aerial photo. Below: the road surface along the road.</figcaption>
+      </figure>
+      <dl class="read">
+        <dt>Hillshade and photo</dt>
+        <dd>The road runs across the river bed itself. It is listed in TxGIO as a <b>vented ford</b>, 4.9 m from the
+          found crossing.</dd>
+        <dt>Profile (the key picture)</dt>
+        <dd>The black line is the road surface every metre along the road. The <span style="color:var(--ford)">red dot</span>
+          is its lowest point, where water goes over first. The <span style="color:var(--bridge)">blue dashed line</span>
+          is the stream level beside the road.</dd>
+        <dt>Clearance = lowest road point − stream level</dt>
+        <dd><b>0.00 m</b> here: the road's lowest point is at stream level (both 236.28 m), so water reaches the road as
+          soon as the stream rises. A road on fill over a culvert sits higher. Under a bridge the lidar shows the ground
+          beneath, so clearance can read near 0 there too, which is why the road's slope next to the stream is also used.</dd>
+        <dt>Class and score</dt>
+        <dd>78% ford-like. Screening score 10 of 10: type 3, clearance 3, drainage 3 (the catchment is at least
+          543 km²) and missing warning sign 1. Every term is shown, so the rank can be checked.</dd>
+      </dl>
+    </div>
+  </div>
+
+  <div>
+    <h2>Every number carries a certainty label</h2>
+    <div class="tiers">
+      <div><b>Measured</b>Geometry from USGS 1 m lidar (mostly the 2017 Central Texas survey).</div>
+      <div><b>Derived</b>Upstream drainage area from 10 m elevation; marked "≥" where the catchment leaves the routed area.</div>
+      <div><b>Classified</b>Model output, published with its held-out precision and recall.</div>
+      <div><b>Screening</b>The rank. It is not a flood forecast and is not validated yet.</div>
+    </div>
+  </div>
+
+  <div class="two">
+    <div>
+      <h2>Limits, stated plainly</h2>
+      <ul>
+        <li><b>The score is not validated.</b> It did not track the bridge inspectors' overtopping rating (NBI
+          item 71) in either county.</li>
+        <li><b>Bridges and fords look alike in clearance.</b> In Hays, bridges even read lower than fords, consistent
+          with the lidar showing the ground under the deck. The steep drop at the bridge ends carries most of the
+          difference.</li>
+        <li><b>Labels differ by county:</b> Hays mostly from the county, Travis from FIS, atxfloods.com and volunteers.
+          NBI coordinates are coarse.</li>
+        <li><b>The data ages differ:</b> the lidar is from 2017-2018 and the photos from 2022. Rebuilt crossings
+          can disagree.</li>
+        <li><b>Drainage area is topographic</b>; over the Edwards recharge zone the real area differs.</li>
+      </ul>
+    </div>
+    <div>
+      <h2>Next steps</h2>
+      <ol>
+        <li>An aerial-image model (NAIP) to cut the false fords.</li>
+        <li>A hand-labelled gold set, and a blind spot check of the unlisted ford-like crossings.</li>
+        <li>More counties, then statewide on a computing cluster.</li>
+        <li>Design rainfall (NOAA Atlas 14) in the ranking; later, overtopping hydraulics.</li>
+      </ol>
+      <h2 style="margin-top:4px">Ways to collaborate</h2>
+      <ul>
+        <li>Field-verified crossing records to train and test against.</li>
+        <li>Review of the ranking, and of which decisions it should support.</li>
+        <li>Computing time for a statewide run.</li>
+        <li>Joint work on the imagery model.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="box">
+    <h3>In the live demo</h3>
+    <p style="margin:0">Click any dot for its hillshade, aerial photo, road profile and labelled measurements. "Show: only
+      those NOT in TxGIO" leaves the unlisted ford-like crossings. Results holds page 1's numbers; Spot check runs the blind review.</p>
+  </div>
+
+  <div class="foot">
+    <b>Data:</b> USGS 3DEP (1 m lidar, 10 m elevation); USGS National Hydrography Dataset; US Census TIGER/Line 2024
+    roads; Texas Geographic Information Office (TxGIO) low-water crossings; USDA NAIP 2022 aerial photos, served by TxGIO;
+    FHWA National Bridge Inventory 2025; demo base map © OpenStreetMap contributors. Built on the open-source h3-lowpoints
+    library; all counts come from the pilot's run files. A screening tool, not a flood forecast or a basis for safety decisions.
+  </div>
+</section>
+
+</body>
+</html>

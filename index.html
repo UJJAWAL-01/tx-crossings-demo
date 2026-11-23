@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Texas Road-Stream Crossings</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="vendor/maplibre-gl.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<aside id="panel">
+  <header>
+    <h1>Texas road-stream crossings</h1>
+    <p class="sub">Pilot: every place a road crosses a stream in Hays and Travis counties, found and
+      measured from open data. Trained on Hays; tested once on Travis.</p>
+  </header>
+  <nav class="tabs" role="tablist">
+    <button data-tab="explore" class="on">Explore</button>
+    <button data-tab="results">Results</button>
+    <button data-tab="method">Method and limits</button>
+    <button data-tab="spot">Spot check</button>
+  </nav>
+  <section id="tab-explore" class="tab on">
+    <div class="row">
+      <button class="fly" data-county="hays">Hays (trained)</button>
+      <button class="fly" data-county="travis">Travis (held-out test)</button>
+    </div>
+    <div class="row">
+      <label><input type="checkbox" id="show-x" checked> Crossings</label>
+      <label><input type="checkbox" id="show-t" checked> Known low-water crossings (TxGIO)</label>
+      <label><input type="checkbox" id="show-n"> Bridge inventory (NBI)</label>
+      <label><input type="checkbox" id="show-aerial" checked> Aerial (NAIP 2022, from zoom 13)</label>
+    </div>
+    <div class="row">
+      <label for="known">Show</label>
+      <select id="known">
+        <option value="all">all crossings</option>
+        <option value="known">only those in the TxGIO inventory</option>
+        <option value="new">only those NOT in TxGIO</option>
+      </select>
+    </div>
+    <div class="row">
+      <label for="minscore">Screening score at least <b id="minscore-v">0</b> of 10</label>
+      <input type="range" id="minscore" min="0" max="10" value="0">
+    </div>
+    <div class="legend">
+      <span><i class="dot ford"></i>Ford-like: road dips to the stream</span>
+      <span><i class="dot culvert"></i>Culvert-like: road on fill</span>
+      <span><i class="dot bridge"></i>Bridge-like: steep gap in the road</span>
+      <span><i class="dot none"></i>Not measured</span>
+      <span><i class="ring"></i>Known low-water crossing (TxGIO)</span>
+    </div>
+    <p class="hint" id="count"></p>
+    <div id="detail"><p class="hint">Click a crossing on the map to see how it was measured.</p></div>
+  </section>
+  <section id="tab-results" class="tab"></section>
+  <section id="tab-method" class="tab"></section>
+  <section id="tab-spot" class="tab"></section>
+  <footer><a href="brief/TX_Crossings_Pilot_Brief.pdf">Two-page brief (PDF)</a> ·
+    Screening tool, not a flood forecast. Pilot results; not for safety decisions.
+    Data: USGS 3DEP, NHD; US Census TIGER/Line; TxGIO; USDA NAIP; FHWA NBI; © OpenStreetMap contributors.</footer>
+</aside>
+<main id="map"></main>
+<script type="module" src="app.js"></script>
+</body>
+</html>
